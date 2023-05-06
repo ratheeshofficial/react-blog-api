@@ -1,6 +1,9 @@
 const router = require("express").Router();
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
+const sgMail = require("@sendgrid/mail");
+
+const sendDridMail = () => {};
 
 // REGISTER
 router.post("/register", async (req, res) => {
@@ -14,6 +17,27 @@ router.post("/register", async (req, res) => {
     });
     const user = await newUser.save();
     res.status(200).json(user);
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+    const msg = {
+      to: newUser.email,
+      from: "rubeshrasiah@gmail.com", // Use the email address or domain you verified above
+      subject: "Sending with Twilio SendGrid is Fun",
+      text: "and easy to do anywhere, even with Node.js",
+      html: "<strong>and easy to do anywhere, even with Node.js</strong>",
+    };
+    sgMail.send(msg).then(
+      (res) => {
+        console.log("res", res);
+      },
+      (error) => {
+        console.error(error);
+
+        if (error.response) {
+          console.error(error.response.body);
+        }
+      }
+    );
+    // sendDridMail();
   } catch (error) {
     res.status(500).json(error);
   }
