@@ -9,8 +9,7 @@ const UserSchema = new mongoose.Schema(
     },
     email: {
       type: String,
-      required: true,
-      unique: true,
+      // unique: true,
     },
     password: {
       type: String,
@@ -19,6 +18,11 @@ const UserSchema = new mongoose.Schema(
     profilePic: {
       type: String,
       default: "",
+    },
+    role: {
+      type: String,
+      enum: ["superAdmin", "admin", "user"],
+      default: "user",
     },
   },
   { timestamps: true }

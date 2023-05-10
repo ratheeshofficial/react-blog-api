@@ -1,3 +1,4 @@
+const { boolean } = require("joi");
 const mongoose = require("mongoose");
 
 const PostSchema = new mongoose.Schema(
@@ -22,6 +23,10 @@ const PostSchema = new mongoose.Schema(
     categories: {
       type: Array,
       required: false,
+    },
+    isApproved: {
+      type: String,
+      default: false,
     },
   },
   { timestamps: true }

@@ -11,9 +11,11 @@ router.post("/", async (req, res) => {
     res.status(500).json(error);
   }
 });
+
 // UPDATE POST
 router.put("/:id", async (req, res) => {
   const post = await Post.findById(req.params.id);
+  console.log("post", post);
   if (post.username === req.body.username) {
     try {
       const updatePost = await Post.findByIdAndUpdate(
