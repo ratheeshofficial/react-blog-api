@@ -1,7 +1,7 @@
-const { boolean } = require("joi");
 const mongoose = require("mongoose");
+const { Schema } = mongoose;
 
-const PostSchema = new mongoose.Schema(
+const PostSchema = new Schema(
   {
     title: {
       type: String,
@@ -28,6 +28,7 @@ const PostSchema = new mongoose.Schema(
       type: String,
       default: false,
     },
+    user: { type: Schema.Types.ObjectId, ref: "User" },
   },
   { timestamps: true }
 );

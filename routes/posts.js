@@ -60,17 +60,24 @@ router.get("/:id", async (req, res) => {
 router.get("/", async (req, res) => {
   const userName = req.query.user;
   const catName = req.query.cat;
+  // console.log("userName", userName);
   try {
     let posts;
-    if (userName) {
-      posts = await Post.find({ username: userName });
-      // console.log("username", posts);
-    } else if (catName) {
-      posts = await Post.find({ categories: { $in: [catName] } }); //$in method is to find is there is inside in categories
-      // console.log("catName", posts);
-    } else {
-      posts = await Post.find();
-    }
+    // if (userName) {
+    posts = await Post.findOne({ _id: "645c8e7fa4c42fa48cae3e70" }).populate({
+      path: "user",
+    });
+    // .populate({
+    //   path: "user",
+    //   option: { strictPopulate: false },
+    // });
+    // console.log("username", posts);
+    // } else if (catName) {
+    //   posts = await Post.find({ categories: { $in: [catName] } }); //$in method is to find is there is inside in categories
+    //   // console.log("catName", posts);
+    // } else {
+    //   posts = await Post.find();
+    // }
     res.status(200).json(posts);
   } catch (error) {
     res.status(200).json(error);
